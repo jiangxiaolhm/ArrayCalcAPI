@@ -25,8 +25,15 @@ namespace ArrayCalcAPI.Controllers
         [HttpGet("reverse")]
         public async Task<ActionResult<int[]>> Reverse([FromQuery] int[] productIds)
         {
-            var result = await this.arrayCalcService.Reverse<int>(productIds);
-            return result;
+            try
+            {
+                var result = await arrayCalcService.Reverse(productIds);
+                return result;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
 
         }
 
@@ -38,8 +45,15 @@ namespace ArrayCalcAPI.Controllers
                 return BadRequest("The position is out of range.");
             }
 
-            var result = await this.arrayCalcService.DeletePart<int>(position, productIds);
-            return result;
+            try
+            {
+                var result = await arrayCalcService.DeletePart(position, productIds);
+                return result;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
